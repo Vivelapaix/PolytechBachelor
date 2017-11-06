@@ -1,0 +1,3 @@
+100
+/home/student/Desktop/lab2
+img = jpg png
