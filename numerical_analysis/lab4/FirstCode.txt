@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<math.h>
+
+#define C sqrt(3.0 / 5.0)
+
+double f(double x)
+{
+  return sqrt(fabs(x));
+}
+
+
+double GaussQuadrature(char *FileName, double a, double b, double eps, double value)
+{
+  FILE *file = NULL;
+  double h1 = (b - a) / 2.0, c1 = C * h1, x2 = (b + a) / 2.0,
+	     f1 = f(x2 - c1), f3 = f(x2 + c1),
+		 s1 = h1 * (5 * f1 + 8 * f(x2) + 5 * f3) / 9.0,
+		 x1 = 0, s2 = 0, h = 0, d = 0, x3 = 0;
+  int n = 2;
+  fopen_s(&file, FileName, "w");
+  do
+  {
+    h = (b - a) / (double)n;
+    h1 = h / 2.0;
+	c1 = C * h1;
+
+	x2 = a + h1; 
+	x1 = x2 - c1; 
+	x3 = x2 + c1; 
+	s2 = 0;
+
+    for(int i = 1; i <= n; ++i)
+	{
+      s2 += 5 * f(x1) + 8 * f(x2) + 5 * f(x3);
+	  x1 += h;
+	  x2 += h;
+	  x3 += h;
+	}
+  
+    s2 *= h1 / 9.0;
+	d = fabs(s1 - s2) / 63.0;
+	s1 = s2;
+	fprintf(file,"%i %.15lf\n", n, fabs(s2 - value));
+	n *= 2;
+	
+  } while(d >= eps);
+
+  fclose(file);
+  return s2;
+}
+
+
+
+int main(void)
+{
+  char *FileName = "C:\\Файлы\\Численные методы\\MATLAB\\R2008a\\bin\\data.txt";
+  printf("%lf\n", GaussQuadrature(FileName, -2, 1, 1e-8, (2.0 / 3.0)*(1.0 + 2*sqrt(2.0))));
+  
+  return 0;
+}

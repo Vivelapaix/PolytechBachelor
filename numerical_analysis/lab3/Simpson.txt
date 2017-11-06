@@ -1,0 +1,27 @@
+double Simpsons(double a, double b, double e, int *iter, double f(double))
+{
+double y, h, I, I1, I2 = 1, I3, x;
+
+h = b - a;
+I = f(a) + f(b);
+
+do
+{
+I3 = I2;
+h = h / 2;
+I1 = 0;
+x = a + h;
+do
+{
+I1 = I1 + 2 * f(x);
+x = x + 2 * h;
+}while(x < b);
+I = I + I1;
+I2 = (I + I1) * h / 3;
+x = fabs(I3 - I2) / 15;
+++(*iter);
+}while(x > e);
+
+y = I2;
+return y;
+}

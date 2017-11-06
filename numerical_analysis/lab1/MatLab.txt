@@ -1,0 +1,14 @@
+x=load('-ascii', 'GraphSin(x)Uniform.txt')
+k = x(:, 2)
+e = x(:, 1)
+plot(e, k, 'r')
+hold on
+grid on
+ 
+x = 0 : 0.01 : 3.1415
+y = sin(x)
+plot(x, y, 'b')
+ 
+hold on
+grid on
+legend('equidistance','chebyshev')

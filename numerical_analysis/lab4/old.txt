@@ -1,0 +1,26 @@
+ /*for(int j = 0; j < count; j++)
+  {
+	I0 += coef[j] * f(roots[j] + j * h);
+  }
+  I0 *= (b - a) / 2.0;*/
+
+  /*do
+  {
+    h = (b - a) / (double)n;
+    h1 = h / 2.0;
+    I1 = 0;
+    for(int i = 1; i <= n; ++i)
+	{
+	  for(int j = 0; j < count; j++)
+	  {
+	    I1 += coef[j] * f(roots[j] + j * h);
+	  }
+	}
+    I1 *= h1;
+
+	d = fabs(I0 - I1) / tmp;
+	I0 = I1;
+	fprintf(out,"%i %.15lf\n", n, fabs(I1 - value));
+	n *= 2;
+	
+  } while(d >= eps);*/
